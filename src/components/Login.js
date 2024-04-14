@@ -5,11 +5,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { checkValidation } from '../utils/validate';
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../utils/firebase';
+import { updateProfile } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const SignInHandler = () => {
     setIsSignIn( !isSignIn);
@@ -35,9 +39,27 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
-          // ...
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/101713299?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              // Profile updated!
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMsg(error.message);
+            });
+  
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -74,7 +96,7 @@ const Login = () => {
   
   return (
     <div className="">
-      <Header />
+      < Header />
       <div className="absolute">
         <img
           className=""
@@ -128,7 +150,7 @@ const Login = () => {
                 SignInHandler();
               }}
             >
-              Sign In Now
+              Sign Up Now
             </Link>
           </div>
         ) : (
@@ -141,7 +163,7 @@ const Login = () => {
                 SignInHandler();
               }}
             >
-              Sign Up Now
+              Sign In Now
             </Link>
           </div>
         )}

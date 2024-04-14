@@ -24,8 +24,8 @@ const Body = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         //user is signed in // got this template from firebase authentication->web->manage users
-        const { uid, email, displayName } = user;
-        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL,}));
         
       } else {
         // User is signed out
