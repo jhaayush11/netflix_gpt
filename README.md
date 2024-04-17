@@ -20,7 +20,20 @@
   while logged out disable moving to browse page(-onAuthChange will be used in header instead of body)
 -Unsubscribe to onAuthChange (return on unmounting)
 -Fetch nowPlayingMovies data from TMDB Website
--
+-Custom Hook for Playing Movies and also for Trailer Video
+-Created movieSlice
+-Updated Store with movies data
+-Main and Secondary Container Outline
+-Fetch data for both nowPlayingMovies and Trailer Videos
+-Update Store with Trailer Video Data
+-Embedded the Youtube Video and made it autoplay and mute
+-Tailwind CSS to make mainContainer beautiful
+-Build Secondary Container
+-Build Movie List
+-Build Movie Card
+-TMDB Image CDN URL
+-Made the Browser page look amazing using tailwind css
+-Made Custom hooks like usePopularMovies,useTopRatedMovies,useUpcomingMovies
 
 
 #Browse Page
