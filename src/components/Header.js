@@ -9,12 +9,12 @@ import { Netlix_Logo } from '../utils/constants';
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { toggleGPTSearchView } from '../utils/gptSlice';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const user = useSelector(store => store.user); 
-    // console.log(user);
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -56,6 +56,10 @@ const Header = () => {
         navigate('/error')
       });
   }
+  
+  const HandleGptSearch = () => {
+    dispatch(toggleGPTSearchView());
+  }
 
   return (
     <div className="absolute z-20 grid grid-cols-12 w-screen bg-gradient-to-b from-black">
@@ -68,12 +72,12 @@ const Header = () => {
       </div>
       {user &&
         <div className="col-span-5 grid justify-items-end grid-cols-12">
+          <button onClick={() => { HandleGptSearch() } }className="font-bold text-white bg-purple-800 col-span-9 rounded-lg mt-4 p-2 h-10 mr-2">GPT Search</button>
           <img
-            className=" mt-4 w-10 h-10 rounded-lg border-white border-2 col-span-10"
+            className=" mt-4 w-10 h-10 rounded-lg border-white border-2 col-span-1"
             src={user?.photoURL}
             alt="Error"
           />
-          {/* {console.log(user?.PhotoURL)} */}
           {isMenuOpen && <button className=" text-white col-span-1 mr-4" onClick={() => { HandleMenu() }}>▼{<MenuPopUp />}</button>}
           {!isMenuOpen && <button className=" text-white col-span-1 mr-4" onClick={() => { HandleMenu() }}>▲</button>}
           <button className="text-white col-span-1 font-bold" onClick={() => { HandleSignOut() }}>SignOut</button>
