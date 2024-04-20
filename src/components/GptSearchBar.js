@@ -9,6 +9,7 @@ const GptSearchBar = () => {
       <form
         action=""
         className="bg-black p-4 w-1/2 grid grid-cols-12 rounded-lg shadow-lg shadow-black "
+        onSubmit={(e)=>e.preventDefault()}
       >
         <input
           type="text"
