@@ -4,7 +4,7 @@ export const Netlix_Logo =
 export const Avatar_URL =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiSRIlNla0MmNXBSJofMMenqC5UxAQQaiSMg&s";
 
-export const Background_Image = "https://assets.nflxext.com/ffe/siteui/vlv3/7ca5b7c7-20aa-42a8-a278-f801b0d65fa1/fb548c0a-8582-43c5-9fba-cd98bf27452f/IN-en-20240326-popsignuptwoweeks-perspective_alpha_website_small.jpg";
+export const Background_Image = "https://assets.nflxext.com/ffe/siteui/vlv3/9f46b569-aff7-4975-9b8e-3212e4637f16/453ba2a1-6138-4e3c-9a06-b66f9a2832e4/IN-en-20240415-popsignuptwoweeks-perspective_alpha_website_small.jpg";
 
 export const API_OPTIONS={
   method: 'GET',
