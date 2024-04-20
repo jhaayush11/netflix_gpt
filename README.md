@@ -34,6 +34,8 @@
 -TMDB Image CDN URL
 -Made the Browser page look amazing using tailwind css
 -Made Custom hooks like usePopularMovies,useTopRatedMovies,useUpcomingMovies
+-GPT Search Page & GPT Search Bar
+-Multi Language feature in gpt page
 
 
 #Browse Page

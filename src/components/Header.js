@@ -10,11 +10,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { toggleGPTSearchView } from '../utils/gptSlice';
+import { Supported_Language } from '../utils/LanguageConstants';
+import { toggleLanguage } from '../utils/configSlice';
+import { lang } from '../utils/LanguageConstants';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const user = useSelector(store => store.user); 
+  const gptPageOpen = useSelector(store => store.gpt.showGptPage);
+  const curr_lang = useSelector(store => store.config.lang);
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -58,7 +63,11 @@ const Header = () => {
   }
   
   const HandleGptSearch = () => {
+    // e.preventDefault();
     dispatch(toggleGPTSearchView());
+  }
+  const HandleLangChange = (e) => {
+    dispatch(toggleLanguage(e?.target?.value));
   }
 
   return (
@@ -70,17 +79,32 @@ const Header = () => {
           alt=""
         />
       </div>
+      {user && <div className='col-span-3 flex justify-center'>
+        {gptPageOpen && <div div className='mt-4 p-2 h-10 rounded-l-full bg-purple-800 font-bold text-white'>Language/भाषा</div>}
+         {gptPageOpen && <select
+            name="Language/भाषा" id=""
+            className='bg-purple-800 text-white w-4 h-10 mt-4 p-2 rounded-r-full'
+            onChange={HandleLangChange}
+        >
+            {Supported_Language.map((lan) => <option value={lan.identifier} >{lan.name}</option>)}
+        </select>}
+      </div>}
       {user &&
-        <div className="col-span-5 grid justify-items-end grid-cols-12">
-          <button onClick={() => { HandleGptSearch() } }className="font-bold text-white bg-purple-800 col-span-9 rounded-lg mt-4 p-2 h-10 mr-2">GPT Search</button>
+        <div className="col-span-3 grid grid-cols-12 ">
+          <button
+            onClick={() => { HandleGptSearch() }}
+            className="font-bold text-white bg-purple-800 col-span-6 rounded-full mt-4 h-10 mr-6 w-3/4">
+            {gptPageOpen ? "Home":'GPT Search'}
+          </button>
+          
           <img
-            className=" mt-4 w-10 h-10 rounded-lg border-white border-2 col-span-1"
+            className=" mt-4 w-10 h-10 rounded-lg border-white border-2 col-span-2"
             src={user?.photoURL}
             alt="Error"
           />
-          {isMenuOpen && <button className=" text-white col-span-1 mr-4" onClick={() => { HandleMenu() }}>▼{<MenuPopUp />}</button>}
-          {!isMenuOpen && <button className=" text-white col-span-1 mr-4" onClick={() => { HandleMenu() }}>▲</button>}
-          <button className="text-white col-span-1 font-bold" onClick={() => { HandleSignOut() }}>SignOut</button>
+          {isMenuOpen && <button className=" text-white col-span-1 mr-1" onClick={() => { HandleMenu() }}>▼{<MenuPopUp />}</button>}
+          {!isMenuOpen && <button className=" text-white col-span-1 mr-1" onClick={() => { HandleMenu() }}>▲</button>}
+          <button className="text-white  font-bold" onClick={() => { HandleSignOut() }}>SignOut</button>
         </div>
       }
     </div>
